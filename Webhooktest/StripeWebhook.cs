@@ -14,7 +14,8 @@ namespace Webhooktest
     
     public partial class StripeWebhook
     {
-        public string EventId { get; set; }
+        public int EventId { get; set; }
+        public string EventKey { get; set; }
         public string EventType { get; set; }
     }
 }

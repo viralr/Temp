@@ -40,7 +40,7 @@ namespace Webhooktest.Controllers
 
             entity.StripeWebhooks.Add(new StripeWebhook()
             {
-                EventId = stripeEvent.Id,
+                EventKey = stripeEvent.Id,
                 EventType = stripeEvent.Type
             });
             entity.SaveChanges();

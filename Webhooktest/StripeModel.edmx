@@ -16,7 +16,8 @@
           <Key>
             <PropertyRef Name="EventId" />
           </Key>
-          <Property Name="EventId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventKey" Type="varchar" MaxLength="50" />
           <Property Name="EventType" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="WebhookModelStoreContainer">
@@ -28,16 +29,9 @@
     <edmx:ConceptualModels>
       <Schema Namespace="WebhookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WebhookEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="StripeWebhooks" EntityType="WebhookModel.StripeWebhook" />
           <EntitySet Name="Logs" EntityType="WebhookModel.Log" />
+          <EntitySet Name="StripeWebhooks" EntityType="WebhookModel.StripeWebhook" />
         </EntityContainer>
-        <EntityType Name="StripeWebhook">
-          <Key>
-            <PropertyRef Name="EventId" />
-          </Key>
-          <Property Name="EventId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EventType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Log">
           <Key>
             <PropertyRef Name="LogId" />
@@ -45,25 +39,34 @@
           <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Info" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="StripeWebhook">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EventType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WebhookModelStoreContainer" CdmEntityContainer="WebhookEntities" >
-          <EntitySetMapping Name="StripeWebhooks">
-            <EntityTypeMapping TypeName="WebhookModel.StripeWebhook">
-              <MappingFragment StoreEntitySet="StripeWebhook">
-                <ScalarProperty Name="EventType" ColumnName="EventType" />
-                <ScalarProperty Name="EventId" ColumnName="EventId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Logs">
             <EntityTypeMapping TypeName="WebhookModel.Log">
               <MappingFragment StoreEntitySet="Log">
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StripeWebhooks">
+            <EntityTypeMapping TypeName="WebhookModel.StripeWebhook">
+              <MappingFragment StoreEntitySet="StripeWebhook">
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventKey" ColumnName="EventKey" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

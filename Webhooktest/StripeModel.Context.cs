@@ -25,7 +25,7 @@ namespace Webhooktest
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<StripeWebhook> StripeWebhooks { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<StripeWebhook> StripeWebhooks { get; set; }
     }
 }
