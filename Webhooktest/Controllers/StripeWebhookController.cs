@@ -34,6 +34,12 @@ namespace Webhooktest.Controllers
             if (stripeEvent == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Incoming event empty");
 
+            new WebhookEntities().StripeWebhooks.Add(new StripeWebhook()
+            {
+                EventId = stripeEvent.Id,
+                EventType = stripeEvent.Type
+            });
+
             switch (stripeEvent.Type)
             {
                 case "charge.refunded":
