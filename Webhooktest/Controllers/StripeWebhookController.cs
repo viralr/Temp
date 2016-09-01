@@ -20,6 +20,10 @@ namespace Webhooktest.Controllers
 
             string json = new StreamReader(req).ReadToEnd();
             StripeEvent stripeEvent = null;
+
+            WebhookEntities entity = new WebhookEntities();
+            entity.Logs.Add(new Log() {Info = "Webhook Received"});
+            entity.SaveChanges();
             try
             {
                 // as in header, you need https://github.com/jaymedavis/stripe.net
@@ -34,12 +38,12 @@ namespace Webhooktest.Controllers
             if (stripeEvent == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Incoming event empty");
 
-            new WebhookEntities().StripeWebhooks.Add(new StripeWebhook()
+            entity.StripeWebhooks.Add(new StripeWebhook()
             {
                 EventId = stripeEvent.Id,
                 EventType = stripeEvent.Type
             });
-
+            entity.SaveChanges();
             switch (stripeEvent.Type)
             {
                 case "charge.refunded":

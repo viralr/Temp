@@ -26,5 +26,6 @@ namespace Webhooktest
         }
     
         public virtual DbSet<StripeWebhook> StripeWebhooks { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
     }
 }
