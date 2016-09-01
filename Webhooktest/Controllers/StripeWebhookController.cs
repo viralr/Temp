@@ -11,7 +11,6 @@ namespace Webhooktest.Controllers
 {
     public class StripeWebhookController : Controller
     {
-        [HttpPost]
         public ActionResult Index()
         {
             // MVC3/4: Since Content-Type is application/json in HTTP POST from Stripe
